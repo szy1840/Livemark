@@ -285,10 +285,13 @@
 .write > .b[data-q]:has(+ .b:not([data-q]))::after { bottom: 0; }
 
 .write > p.alert-label { font-weight: bold; color: var(--bar); font-size: 0.9em; }
-.write > p.alert-label:not(.focus) { font-size: 0; }
-.write > p.alert-label:not(.focus)::before {
+/* p.p as well, so a theme's paragraph font-size never re-shows the raw [!TIP] marker. */
+.write > p.p.alert-label:not(.focus) { font-size: 0; }
+.write > p.p.alert-label:not(.focus)::before {
   content: attr(data-alert);
   text-transform: capitalize;
+  font-weight: bold;
+  color: var(--bar);
   font-size: calc(var(--fs) * 0.9);
 }
 

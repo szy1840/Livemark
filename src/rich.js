@@ -183,8 +183,12 @@ function mermaidInit() {
   const theme = v('--mermaid-theme') || (isDark() ? 'dark' : 'default');
   const curve = v('--mermaid-flowchart-curve');
   const pad = parseFloat(v('--mermaid--gantt-left-padding'));
+  // A concrete font: with 'inherit', labels were measured in the page font but drawn in
+  // the font of the block around the diagram (monospace in some themes) and got clipped.
+  const write = document.querySelector('.write');
+  const fontFamily = (write && getComputedStyle(write).fontFamily) || 'inherit';
   window.mermaid.initialize({
-    startOnLoad: false, securityLevel: 'strict', theme, fontFamily: 'inherit',
+    startOnLoad: false, securityLevel: 'strict', theme, fontFamily,
     sequence: { showSequenceNumbers: /^(on|true|1)$/i.test(v('--mermaid-sequence-numbers')) },
     ...(curve ? { flowchart: { curve } } : {}),
     ...(pad ? { gantt: { leftPadding: pad } } : {}),

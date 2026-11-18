@@ -94,7 +94,7 @@
 [data-theme="night"] .write hr { margin: 24px 0; }
 [data-theme="night"] .write mark { color: #000; }
 [data-theme="night"] .write > pre.meta { background: #333; color: #9da2a6; }
-[data-theme="night"] .write > .li[data-kind="task"]::before { background: transparent; border-color: #9da2a6; }
+[data-theme="night"] .write > .li[data-kind="task"]:not([data-checked="1"])::before { background: transparent; border-color: #9da2a6; }
 [data-theme="night"] ::highlight(find) { background: #7a6312; color: #fff; }
 [data-theme="night"] ::highlight(find-current) { background: #c9651c; color: #fff; }
 
