@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "A from-scratch live-preview Markdown editor for macOS and the browser",
-  "license": "MIT",
+  "license": "0BSD",
   "scripts": {
     "start": "node server.mjs",
     "test": "node test/run.mjs"

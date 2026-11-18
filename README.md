@@ -1,5 +1,9 @@
 # Livemark
 
+> **本项目仅供学习和研究使用。** 这是一个个人练手项目，用来学习即时渲染 Markdown 编辑器的设计思路；代码全部从零编写，与 Typora 及其开发者没有任何关系。
+>
+> **For learning and research only.** A personal study project on how live-preview Markdown editors work. All code is written from scratch; not affiliated with Typora or its developers.
+
 A live-preview Markdown editor for macOS and the browser, written from scratch: what you type renders in place, and the Markdown syntax shows only around the caret. Native Swift shell, plain-JavaScript editor, no bundler, no network.
 
 一个从零写的、Typora 风格的即时渲染 Markdown 编辑器。同一套代码既能在浏览器里跑，也能打包成原生 Mac 应用。
@@ -152,6 +156,6 @@ Typora 有而这里没有的：单色表情（Typora 只在 Windows 上生效）
 
 ## 许可
 
-MIT，见 [LICENSE](LICENSE)。`vendor/` 里的第三方库和字体各自沿用原许可，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+0BSD（BSD Zero Clause License），见 [LICENSE](LICENSE)：可以随意使用、复制、修改和分发，不需要保留署名。`vendor/` 里的第三方库和字体各自沿用原许可，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
 Livemark 是独立项目，和 Typora 及其开发者没有任何关系；文中提到 Typora 只是为了说明行为对照的对象。

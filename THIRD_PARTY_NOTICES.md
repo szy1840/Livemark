@@ -1,6 +1,6 @@
 # Third-party notices
 
-Livemark's own code is under the MIT License (see `LICENSE`). The files in
+Livemark's own code is under the BSD Zero Clause License (0BSD, see `LICENSE`). The files in
 `vendor/` come from the projects below and keep their own licences; each
 licence file sits next to the files it covers.
 
