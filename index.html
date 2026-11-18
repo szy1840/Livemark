@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="github" data-dark="0">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Livemark</title>
+  <link rel="stylesheet" href="./vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="./vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="./styles/editor.css">
+  <link rel="stylesheet" href="./styles/themes.css">
+  <link rel="stylesheet" href="./styles/app.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar" aria-label="侧边栏"></aside>
+
+    <main>
+      <header id="titlebar">
+        <nav id="menubar" aria-label="菜单栏"></nav>
+        <div class="title"><span id="doc-title">未命名.md</span><span id="dirty" hidden>— Edited</span></div>
+      </header>
+      <div id="toolbar" role="toolbar" aria-label="格式"></div>
+      <div id="find-host"></div>
+
+      <div id="scroller">
+        <div id="write" class="write" role="textbox" aria-multiline="true" aria-label="文档"></div>
+        <textarea id="source" class="write" spellcheck="false" aria-label="Markdown 源代码" hidden></textarea>
+      </div>
+
+      <footer id="statusbar">
+        <button id="btn-sidebar" class="icon-btn" title="侧边栏" aria-label="切换侧边栏">
+          <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="2.5" x2="6" y2="13.5" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button id="btn-source" class="icon-btn" title="源代码模式" aria-label="切换源代码模式">
+          <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="spacer"></span>
+        <span id="modes"></span>
+        <button id="wordcount" type="button" title="字数统计"></button>
+      </footer>
+    </main>
+  </div>
+  <datalist id="lang-list"></datalist>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

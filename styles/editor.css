@@ -1,0 +1,577 @@
+/* Document typography and editor mechanics.
+   This file styles both the live editor (a flat list of .b blocks) and
+   exported HTML (ordinary nested blockquote / ul / pre markup), so an
+   exported page looks like what was on screen. The values here are the
+   default (Github) theme; themes.css overrides them per theme. */
+
+:root {
+  --bg: #ffffff;
+  --text: #333333;
+  --muted: #777777;
+  --faint: #b8b8b8;
+  --border: #dfe2e5;
+  --rule: #e7e7e7;
+  --heading-rule: #eeeeee;
+  --soft: #f8f8f8;
+  --accent: #4183c4;
+  --mark-bg: #ffff00;
+  --code-bg: #f3f4f4;
+  --code-border: #e7eaed;
+  --fence-bg: #f8f8f8;
+  --zebra: #f8f8f8;
+  --quote-text: #777777;
+  --quote-bar: #dfe2e5;
+  --select: #b5d6fc;
+  --side-bg: #fafafa;
+  --control: #777777;
+  --hl-comment: #aa5500;
+  --hl-string: #aa1111;
+  --hl-number: #116644;
+  --hl-keyword: #770088;
+  --hl-title: #0000ff;
+  --hl-attr: #0000cc;
+  --hl-tag: #117700;
+  --font-body: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-heading: var(--font-body);
+  --font-mono: "Lucida Console", Menlo, Monaco, Consolas, "Courier New", monospace;
+  --line-height: 1.6;
+  --fs: 16px;
+  --content-width: 860px;
+}
+
+.write {
+  /* Lengths that position list markers and quote bars. They are fixed
+     lengths derived from the base font size, not em, so they line up across
+     blocks whose own font size differs (headings inside a quote). */
+  --iw: calc(var(--fs) * 1.875);
+  --qw: calc(var(--fs) * 1.1875);
+  --bar-w: 4px;
+  --gap: calc(var(--fs) * 0.8);
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 30px 30px 100px;
+  min-height: 100%;
+  box-sizing: border-box;
+  font: var(--fs) / var(--line-height) var(--font-body);
+  color: var(--text);
+  outline: none;
+  caret-color: var(--accent);
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+.write ::selection { background: var(--select); }
+::highlight(find) { background: #ffe58f; color: #1f2328; }
+::highlight(find-current) { background: #ff9632; color: #1f2328; }
+
+/* Every editable leaf keeps its whitespace: the DOM text is the source. */
+.write [data-leaf] { white-space: pre-wrap; outline: none; }
+
+/* --- blocks: shared ------------------------------------------------------- */
+.write > .b {
+  position: relative;
+  margin: var(--gap) 0;
+  margin-left: calc(var(--q, 0) * var(--qw) + var(--indent, 0) * var(--iw));
+  transition: opacity 0.25s ease;
+}
+.write > .b:first-child:not(.h) { margin-top: 0; }
+
+.write > .h { margin-top: 1rem; margin-bottom: 1rem; }
+.write > pre.code { margin-top: 15px; margin-bottom: 15px; }
+.write > .math { margin-top: 1rem; margin-bottom: 1rem; }
+.write h1, .write h2, .write h3, .write h4, .write h5, .write h6 {
+  font-family: var(--font-heading);
+  font-weight: bold;
+  line-height: 1.4;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.write h1 { font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid var(--heading-rule); }
+.write h2 { font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid var(--heading-rule); }
+.write h3 { font-size: 1.5em; line-height: 1.43; }
+.write h4 { font-size: 1.25em; }
+.write h5 { font-size: 1em; }
+.write h6 { font-size: 1em; color: var(--muted); }
+.write p { margin: var(--gap) 0; }
+.write a { color: var(--accent); text-decoration: none; }
+:root:not([data-theme]) .write a, [data-theme="github"] .write a { text-decoration: underline; }
+.write a:hover { text-decoration: underline; }
+.write hr { border: 0; height: 2px; background: var(--rule); margin: 16px 0; }
+.write img { max-width: 100%; vertical-align: middle; }
+.write kbd {
+  margin: 0 0.1em;
+  padding: 0.1em 0.6em;
+  font-size: 0.8em;
+  color: #242729;
+  background: #fff;
+  border: 1px solid #adb3b9;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px #fff inset;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.write mark { background: var(--mark-bg); color: #000; }
+.write code { font-family: var(--font-mono); }
+.write :not(pre) > code {
+  font-size: 0.9em;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* A faint level hint beside the heading that holds the caret. */
+.write > .h.focus::before {
+  content: "h" attr(data-level);
+  position: absolute;
+  left: -28px;
+  top: 0.45em;
+  font: 400 12px var(--font-body);
+  color: var(--faint);
+  border: 1px solid var(--faint);
+  border-radius: 3px;
+  padding: 0 2px;
+  line-height: 1.3;
+}
+.write > .h[data-level="1"].focus::before, .write > .h[data-level="2"].focus::before { display: none; }
+
+/* --- the core trick -------------------------------------------------------
+   Markdown markers are always in the DOM. They are hidden until the caret
+   enters their token, which only sets data-open on it. */
+.mk { display: none; color: var(--faint); font-weight: 400; font-style: normal; text-decoration: none; }
+.tok[data-open] > .mk { display: inline; }
+
+.tok[data-t="link"] > a, .tok[data-t="url"] > a { cursor: text; }
+.tok[data-t="link"][data-open] > .mk:last-child { color: var(--muted); word-break: break-all; }
+.tok[data-t="comment"] > .cmt { color: #a27f03; opacity: 0.6; font-family: var(--font-mono); }
+
+.tok[data-t="image"] > img { display: block; margin: auto; }
+.tok[data-t="image"] > .mk { font: 0.9em var(--font-mono); color: #5b469b; word-break: break-all; }
+.tok[data-t="image"][data-err] > img { display: none; }
+.tok[data-t="image"][data-err] > .mk { display: inline; color: #cf222e; }
+/* Buttons in an image whose address is still empty. */
+.img-src-btns { display: none; vertical-align: middle; margin: 0 1px; user-select: none; }
+.tok[data-t="image"][data-open] > .img-src-btns, .tok[data-t="image"][data-err] > .img-src-btns { display: inline-flex; }
+.img-btn { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; background: rgba(0, 0, 0, 0.45); color: #fff; font: 12px/1 var(--font-ui, -apple-system, sans-serif); cursor: pointer; }
+.img-btn:hover, .img-btn.selected { background: rgba(0, 0, 0, 0.7); }
+.img-url { cursor: text; border-radius: 3px 0 0 3px; }
+.img-url::before { content: attr(data-label); }
+.img-file { border-radius: 0 3px 3px 0; border-left: 1px solid rgba(0, 0, 0, 0.3); }
+.img-file::before { content: ""; width: 13px; height: 10px; border: 1.5px solid currentColor; border-radius: 1px 2px 2px 2px; box-sizing: border-box; clip-path: polygon(0 0, 40% 0, 50% 18%, 100% 18%, 100% 100%, 0 100%); }
+.tok[data-t="image"][data-err]::after { content: " ⚠"; color: #cf222e; }
+
+/* Inline math: rendering lives in a shadow root on an empty span. While the
+   source is being edited the rendering floats below it as a preview. */
+.tok[data-t="math"] { position: relative; }
+.math-view { display: inline-block; vertical-align: baseline; }
+.tok[data-t="math"] > .math-src { font: 0.9em var(--font-mono); color: var(--text); }
+.tok[data-t="math"][data-open] > .math-view {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 4px);
+  z-index: 6;
+  padding: 4px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 28, 36, 0.2);
+  white-space: nowrap;
+}
+.emoji-view::after { content: attr(data-emoji); }
+.fn-view {
+  padding: 2px 4px;
+  background: rgba(238, 238, 238, 0.7);
+  color: #555;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.fn-view::after { content: attr(data-label); }
+.tok[data-open] > .fn-view { display: none; }
+
+/* --- lists ---------------------------------------------------------------- */
+.write > .li { margin-top: calc(var(--fs) * 0.5); margin-bottom: calc(var(--fs) * 0.5); padding-left: var(--iw); }
+.write > .b:not(.li) + .li { margin-top: var(--gap); }
+/* Content that belongs to the list item above sits close to it. */
+.write > .li + .b[data-indent]:not(.li) { margin-top: calc(var(--fs) * 0.5); }
+.write > .li + .b:not(.li):not([data-indent]) { margin-top: var(--gap); }
+.write > .li::before {
+  position: absolute;
+  left: 0;
+  width: calc(var(--iw) - var(--fs) * 0.45);
+  text-align: right;
+  white-space: nowrap;
+}
+/* Disc, then circle, then square, as nested lists do in a browser. */
+.write > .li[data-kind="ul"]::before {
+  content: "";
+  left: calc(var(--iw) - var(--fs) * 0.82);
+  top: calc(var(--fs) * var(--line-height) / 2 - var(--fs) * 0.17);
+  width: calc(var(--fs) * 0.34);
+  height: calc(var(--fs) * 0.34);
+  border-radius: 50%;
+  background: currentColor;
+  box-sizing: border-box;
+}
+.write > .li[data-kind="ul"][data-indent="1"]::before { background: none; border: 1px solid currentColor; }
+.write > .li[data-kind="ul"][data-indent]:not([data-indent="1"])::before { border-radius: 0; }
+.write > .li[data-kind="ol"]::before { content: attr(data-n) "."; font-variant-numeric: tabular-nums; }
+.write > .li[data-kind="task"]::before {
+  content: "";
+  left: calc(var(--iw) - var(--fs) * 1.3);
+  top: calc((var(--fs) * var(--line-height) - var(--fs) * 0.875) / 2);
+  width: calc(var(--fs) * 0.875);
+  height: calc(var(--fs) * 0.875);
+  box-sizing: border-box;
+  border: 1px solid #8b8b8b;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+}
+.write > .li[data-kind="task"][data-checked="1"]::before {
+  border-color: #0a6cff;
+  background: #0a6cff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6l4.5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+}
+
+.write ul, .write ol { padding-left: var(--iw); margin: var(--gap) 0; }
+.write li { margin: calc(var(--fs) * 0.25) 0; }
+.write li > ul, .write li > ol { margin: 0; }
+.write li.task { list-style: none; }
+.write li.task > input { margin: 0 0.4em 0 -1.3em; }
+
+/* --- quotes and callouts -------------------------------------------------- */
+.write blockquote {
+  margin: var(--gap) 0;
+  padding: 0 15px;
+  color: var(--quote-text);
+  border-left: var(--bar-w) solid var(--quote-bar);
+}
+.write blockquote.alert { border-left-color: var(--bar); color: inherit; }
+.write .alert-title { font-weight: bold; color: var(--bar); }
+.alert-note, [data-alert="note"] { --bar: #0969da; }
+.alert-tip, [data-alert="tip"] { --bar: #1f883d; }
+.alert-important, [data-alert="important"] { --bar: #8250df; }
+.alert-warning, [data-alert="warning"] { --bar: #9a6700; }
+.alert-caution, [data-alert="caution"] { --bar: #cf222e; }
+
+/* In the editor a quote is a property of each block: the bars are drawn in
+   the block's left margin and meet across the gap between blocks. */
+.write > .b[data-q] { color: var(--quote-text); }
+.write > .b[data-q]:not(.li) { margin-top: var(--gap); margin-bottom: var(--gap); }
+.write > .b[data-alert] { color: inherit; }
+.write > .b[data-q]::after {
+  content: "";
+  position: absolute;
+  left: calc(-1 * (var(--q) * var(--qw) + var(--indent, 0) * var(--iw)));
+  width: calc(var(--q) * var(--qw));
+  top: calc(var(--gap) * -0.5);
+  bottom: calc(var(--gap) * -0.5);
+  /* One solid stripe per quote level. Stripes past the element's width are
+     simply clipped; no transparent colour stops, which PDF output renders
+     as black. */
+  --bar-c: var(--bar, var(--quote-bar));
+  --stripe: linear-gradient(var(--bar-c), var(--bar-c));
+  background:
+    var(--stripe) 0 0 / var(--bar-w) 100% no-repeat,
+    var(--stripe) var(--qw) 0 / var(--bar-w) 100% no-repeat,
+    var(--stripe) calc(var(--qw) * 2) 0 / var(--bar-w) 100% no-repeat,
+    var(--stripe) calc(var(--qw) * 3) 0 / var(--bar-w) 100% no-repeat,
+    var(--stripe) calc(var(--qw) * 4) 0 / var(--bar-w) 100% no-repeat,
+    var(--stripe) calc(var(--qw) * 5) 0 / var(--bar-w) 100% no-repeat;
+  pointer-events: none;
+}
+.write > .b[data-q]:first-child::after,
+.write > .b:not([data-q]) + .b[data-q]::after { top: 0; }
+.write > .b[data-q]:last-child::after,
+.write > .b[data-q]:has(+ .b:not([data-q]))::after { bottom: 0; }
+
+.write > p.alert-label { font-weight: bold; color: var(--bar); font-size: 0.9em; }
+.write > p.alert-label:not(.focus) { font-size: 0; }
+.write > p.alert-label:not(.focus)::before {
+  content: attr(data-alert);
+  text-transform: capitalize;
+  font-size: calc(var(--fs) * 0.9);
+}
+
+/* --- code ----------------------------------------------------------------- */
+.write pre {
+  margin: 15px 0;
+  padding: 8px 4px 6px;
+  background: var(--fence-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 3px;
+  font: 0.9em / 1.6 var(--font-mono);
+  tab-size: 4;
+  overflow: auto;
+}
+.write pre > code { display: block; font: inherit; min-height: 1.6em; background: none; border: 0; padding: 0 4px; }
+.write > pre.code { overflow: visible; }
+.write > pre.code.nowrap > code { white-space: pre; overflow-x: auto; }
+.write > pre.code.lineno { padding-left: 3.4em; }
+.gutter {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 2.8em;
+  text-align: right;
+  color: #999;
+  white-space: pre;
+  user-select: none;
+  pointer-events: none;
+}
+/* The language box sits under the block's lower right corner while the
+   block has the caret. */
+.lang-wrap { position: absolute; right: 4px; top: 100%; z-index: 4; display: none; }
+.write > pre.code.focus .lang-wrap, .lang-wrap:focus-within { display: block; }
+.lang {
+  width: 9em;
+  font: 0.9em var(--font-mono);
+  color: #b4654d;
+  background: var(--bg);
+  border: 0;
+  border-top: 1px solid #eef2f2;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 1px 1px 0 rgba(0, 28, 36, 0.3);
+  padding: 2px 8px;
+  outline: none;
+}
+
+.hljs-comment, .hljs-quote { color: var(--hl-comment); }
+.hljs-string, .hljs-regexp, .hljs-addition { color: var(--hl-string); }
+.hljs-number, .hljs-literal, .hljs-symbol, .hljs-bullet, .hljs-variable.constant_ { color: var(--hl-number); }
+.hljs-keyword, .hljs-selector-tag, .hljs-doctag, .hljs-deletion, .hljs-template-tag { color: var(--hl-keyword); }
+.hljs-title, .hljs-section, .hljs-selector-id, .hljs-selector-class { color: var(--hl-title); }
+.hljs-attr, .hljs-attribute, .hljs-property, .hljs-meta, .hljs-built_in, .hljs-type { color: var(--hl-attr); }
+.hljs-name, .hljs-tag { color: var(--hl-tag); }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: bold; }
+
+/* --- islands: math, HTML, diagrams ---------------------------------------- */
+/* Their source is hidden behind the rendered result until the caret is in. */
+.write > .island > .src { margin: 0 0 8px; }
+.write > .island:not(.focus) > .src,
+.write > .diagram:not(.focus) > code,
+.write > .diagram:not(.focus) > .lang-wrap { display: none; }
+.write > .diagram:not(.focus) { background: none; border-color: transparent; padding: 0; }
+.write > .island > .preview { min-height: 1.6em; cursor: pointer; overflow-x: auto; }
+/* The bar over an HTML or math block: its kind, then Edit (or Finish Editing while editing). */
+.write > .island { position: relative; }
+.write > .island > .raw-tip { display: none; position: absolute; top: -16px; right: 0; height: 16px; line-height: 16px; padding: 0 6px; font: 12px/16px var(--font-ui, -apple-system, sans-serif); color: var(--fg, #333); background: var(--bg, #fff); z-index: 6; cursor: default; user-select: none; }
+.write > .island:hover > .raw-tip, .write > .island.focus > .raw-tip { display: flex; align-items: center; }
+.raw-tip-name { padding-left: 8px; opacity: 0.5; }
+.raw-tip-btn { display: inline-flex; justify-content: center; width: 20px; cursor: pointer; }
+.raw-tip-btn:hover { background: var(--hover, rgba(0, 0, 0, 0.08)); }
+.raw-tip-edit::before { content: "</>"; font: 600 10px/16px var(--font-mono, monospace); }
+.raw-tip-done::before { content: "✓"; }
+.raw-tip-done, .write > .island.focus .raw-tip-edit { display: none; }
+.write > .island.focus .raw-tip-done { display: inline-flex; }
+.write > .math > .preview, .write .math-block { text-align: center; padding: 0.3em 0; }
+.write > .math.focus > .preview { background: var(--soft); border-radius: 0 0 3px 3px; padding: 10px 0; margin-top: -8px; border: 1px solid var(--code-border); border-top-style: dashed; }
+.write > .diagram > .preview, .write .diagram { text-align: center; }
+.write > .diagram.focus > .preview { margin-top: 8px; padding-top: 10px; border-top: 1px dashed var(--code-border); font-family: var(--font-body); }
+.write > .diagram > .preview svg, .write .diagram svg { max-width: 100%; height: auto; }
+.write .diagram-error { color: var(--muted); font: 0.9em var(--font-body); }
+.write .math-error { color: #cf222e; font: 0.85em var(--font-mono); }
+.write > .html > .preview > :first-child { margin-top: 0; }
+.write > .html > .preview > :last-child { margin-bottom: 0; }
+.write > .html > .preview iframe, .write > .html > .preview video { max-width: 100%; }
+.write .hint { color: var(--faint); font-size: 0.9em; }
+
+/* --- other blocks --------------------------------------------------------- */
+.write > .hr { padding: 0; margin: 16px 0; cursor: default; }
+.write > .hr hr { margin: 0; }
+
+.write > pre.meta {
+  padding: 1rem;
+  font-size: 85%;
+  line-height: 1.45;
+  background: #f7f7f7;
+  border: 0;
+  color: #777;
+  overflow: visible;
+}
+
+.write > .def { color: var(--muted); font-size: 0.9em; margin-top: calc(var(--fs) * 0.45); margin-bottom: calc(var(--fs) * 0.45); }
+.def-label { color: var(--faint); font-weight: bold; font-style: italic; }
+.def-url { word-break: break-all; }
+
+.write .toc { margin-top: 20px; padding-bottom: 20px; font-size: 0.9rem; }
+.toc-item { display: block; color: var(--accent); cursor: pointer; }
+.toc-item:hover { text-decoration: underline; }
+.toc-item.l1 { font-weight: bold; }
+.toc-item.l2 { margin-left: 2em; }
+.toc-item.l3 { margin-left: 4em; }
+.toc-item.l4 { margin-left: 6em; }
+.toc-item.l5 { margin-left: 8em; }
+.toc-item.l6 { margin-left: 10em; }
+
+.write table { border-collapse: collapse; border-spacing: 0; width: 100%; margin: var(--gap) 0; text-align: left; }
+.write tr { border: 1px solid var(--border); }
+.write thead tr, .write tbody tr:nth-child(2n) { background: var(--zebra); }
+.write th, .write td { border: 1px solid var(--border); padding: 6px 13px; min-width: 32px; }
+.write th { font-weight: bold; border-bottom: 0; }
+.write > figure.table { margin-right: 0; }
+.write > figure.table table { margin: 0; }
+.table-scroll { overflow-x: auto; }
+.table-tools {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 0 4px;
+  font: 12px -apple-system, "Helvetica Neue", sans-serif;
+  z-index: 5;
+}
+.write > figure.table:focus-within > .table-tools { display: flex; }
+.table-tools button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--control);
+  font: inherit;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.table-tools button:hover { background: var(--bg); border-color: var(--border); color: var(--text); }
+.table-tools i { width: 1px; height: 14px; background: var(--border); margin: 0 4px; }
+.table-tools .gap { flex: 1; background: none; }
+
+.write .footnotes { font-size: 0.9em; opacity: 0.8; }
+.write .fn-label { color: var(--muted); }
+
+/* --- modes ---------------------------------------------------------------- */
+.focus-mode .write > .b:not(.focus) { opacity: 0.3; }
+.typewriter-mode .write { padding-top: 45vh; padding-bottom: 50vh; }
+.indent-first-line .write > p.p:not([data-q]) { text-indent: 2em; }
+/* An empty paragraph keeps its caret at the margin, unless the advanced setting says otherwise. */
+body:not(.indent-empty-p) .indent-first-line .write > p.p:not([data-q]):has(> br:only-child),
+body:not(.indent-empty-p).indent-first-line .write > p.p:not([data-q]):has(> br:only-child) { text-indent: 0; }
+.write.readonly { caret-color: transparent; }
+
+textarea.write {
+  display: block;
+  width: 100%;
+  border: 0;
+  resize: none;
+  background: transparent;
+  font: calc(var(--fs) * 0.9) / 1.6 var(--font-mono);
+  field-sizing: content;
+  white-space: pre-wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .write > .b { transition: none; }
+}
+
+@media print {
+  .write { max-width: none; padding: 0; min-height: 0; }
+  .write pre, .write blockquote, .write table, .write figure, .write img { break-inside: avoid; }
+  .write h1, .write h2, .write h3, .write h4 { break-after: avoid; }
+}
+
+/* "Display source for simple blocks on focus": the heading that holds the
+   caret shows its Markdown prefix instead of the level hint. */
+.source-on-focus .write > .h.focus::before,
+.source-on-focus .write > .h[data-level="1"].focus::before,
+.source-on-focus .write > .h[data-level="2"].focus::before {
+  display: inline;
+  position: static;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 400;
+  color: var(--faint);
+}
+.source-on-focus .write > .h[data-level="1"].focus::before { content: "# "; }
+.source-on-focus .write > .h[data-level="2"].focus::before { content: "## "; }
+.source-on-focus .write > .h[data-level="3"].focus::before { content: "### "; }
+.source-on-focus .write > .h[data-level="4"].focus::before { content: "#### "; }
+.source-on-focus .write > .h[data-level="5"].focus::before { content: "##### "; }
+.source-on-focus .write > .h[data-level="6"].focus::before { content: "###### "; }
+.source-on-focus .write > .li.focus::after { color: var(--faint); }
+.tok[data-t="smart"][data-open] > .emoji-view, .tok[data-t="entity"][data-open] > .emoji-view { display: none; }
+
+/* Footnote tooltip: the definition, or how to define a missing one. */
+.fn-tip { position: fixed; z-index: 60; max-width: min(420px, 80vw); padding: 6px 10px; font-size: 13px; line-height: 1.5; color: var(--fg, #333); background: var(--bg, #fff); border: 1px solid rgba(128, 128, 128, 0.35); border-radius: 4px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); }
+.fn-tip.warn::before { content: "⚠"; color: #d4a017; margin-right: 6px; }
+.fn-tip.warn a { color: #4183c4; text-decoration: underline; cursor: pointer; }
+
+/* Placeholder in an empty math block's source. */
+.write > .math.empty > .src::before { content: attr(data-placeholder); color: var(--faint, #999); pointer-events: none; }
+
+/* ↩ links after a footnote definition, one per reference. */
+.fn-back-area { margin-left: 4px; user-select: none; }
+.fn-back { cursor: pointer; color: var(--link, #4183c4); text-decoration: none; margin-left: 4px; }
+.fn-back::before { content: "↩"; }
+
+/* An image reference with no definition: its source stays visible; with the caret in it,
+   a note under it says how to define it. */
+.tok[data-t="image"][data-noref] { position: relative; }
+.tok[data-t="image"][data-noref] > .mk { display: inline; }
+.tok[data-t="image"][data-noref][data-open]::after { content: attr(data-hint); position: absolute; left: 0.7em; top: 1.6em; z-index: 20; min-width: 300px; padding: 2px 18px; white-space: pre-wrap; font-size: 12px; color: var(--muted, #666); background: var(--bg, #fff); box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); }
+
+/* Settings → Appearance → Font Size → Customized: the chosen size wins over the theme's. */
+html.custom-font-size .write { --fs: var(--fs-user) !important; font-size: calc(var(--fs-user) * var(--fs-scale, 1)) !important; }
+/* Export / Print → "Ignore whitespace and single line break": paragraphs reflow when printed. */
+body.printing.print-ignore-breaks .write [data-leaf]:not(code):not(td):not(th) { white-space: normal; }
+/* Whitespace / Line Break → Ignore: paragraphs and headings collapse runs of spaces and show
+   a single line break as a space, as the page would render them. */
+body.ignore-line-break .write p[data-leaf], body.ignore-line-break .write h1[data-leaf], body.ignore-line-break .write h2[data-leaf], body.ignore-line-break .write h3[data-leaf], body.ignore-line-break .write h4[data-leaf], body.ignore-line-break .write h5[data-leaf], body.ignore-line-break .write h6[data-leaf], body.ignore-line-break .write li[data-leaf] { white-space: normal; }
+/* A hard line break (two trailing spaces) shows a faint "↓" at the end of its line. */
+.write .tok[data-t="linebreak"] { font-family: var(--font-mono); opacity: 0.6; white-space: pre-wrap; }
+.write .tok[data-t="linebreak"] .lb-mark::before { content: "↓"; }
+@media print { .write .tok[data-t="linebreak"] .lb-mark { display: none; } }
+body.printing .write .tok[data-t="linebreak"] .lb-mark { display: none; }
+
+/* A diagram whose source does not parse: the parser's message, under the last good drawing. */
+.diagram-error-msg { margin-top: 6px; padding: 6px 8px; border-left: 3px solid #d0453a; color: #b3382e; font: 12px/1.5 var(--font-mono, Menlo, monospace); white-space: pre-wrap; text-align: left; }
+
+/* Source Code Mode line numbers, in the text area's left padding. */
+#scroller:has(> #source:not([hidden])) { position: relative; }
+#source-gutter { position: absolute; pointer-events: none; user-select: none; color: var(--faint, #b5b5b5); text-align: right; }
+#source-gutter > div { position: absolute; right: 0; font-variant-numeric: tabular-nums; font-size: 0.8em; }
+
+/* The line a diagram's parser rejected. */
+.error-line { background-image: linear-gradient(rgba(208, 69, 58, 0.14), rgba(208, 69, 58, 0.14)); background-repeat: no-repeat; }
+
+/* A rule or table of contents selected with the arrow keys. */
+.write > .object-selected { outline: 2px solid var(--accent, #4a90d9); outline-offset: 3px; border-radius: 2px; }
+
+/* Grips for dragging a table row or column (shown for the cell under the pointer). */
+.write > figure.table { position: relative; }
+.table-grip { position: absolute; display: none; z-index: 4; cursor: grab; border-radius: 3px; background: transparent; }
+.table-grip:hover, figure.dragging-row .row-grip, figure.dragging-col .col-grip { background: color-mix(in srgb, var(--accent, #4a90d9) 35%, transparent); }
+.row-grip { left: -12px; width: 8px; }
+.col-grip { top: -12px; height: 8px; }
+.write tr.drop-target > *, .write td.drop-target, .write th.drop-target { box-shadow: inset 0 0 0 2px var(--accent, #4a90d9); }
+
+/* HTML blocks: embeds in their own frame, a frame still loading or with no page, media that will not play. */
+.write iframe.html-embed { width: 100%; min-height: 360px; border: 0; }
+.write iframe.frame-loading { background: repeating-linear-gradient(90deg, rgba(128, 128, 128, 0.08) 0 40px, rgba(128, 128, 128, 0.16) 40px 80px); }
+.write iframe.frame-blank { background: rgba(128, 128, 128, 0.08); }
+.media-missing { padding: 18px 12px; border: 1px dashed var(--border); border-radius: 4px; color: var(--muted); font-size: 0.9em; text-align: center; }
+
+/* The [TOC] block's hover label with its delete button. */
+.write > .toc { position: relative; }
+.toc-tip { position: absolute; top: -10px; right: 0; display: none; align-items: center; gap: 6px; padding: 1px 6px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); color: var(--muted); font: 11px -apple-system, sans-serif; }
+.write > .toc:hover > .toc-tip { display: inline-flex; }
+.toc-delete { border: 0; background: transparent; color: inherit; cursor: pointer; padding: 0 2px; }
+.toc-delete:hover { color: var(--text); }
+
+/* Find hits in Source Code Mode, drawn behind the (transparent) text area. */
+#source-marks { position: absolute; z-index: 0; margin: 0; border-style: solid; border-color: transparent; color: transparent; white-space: pre-wrap; overflow-wrap: break-word; pointer-events: none; }
+#source-marks mark { color: transparent; background: rgba(255, 213, 0, 0.35); border-radius: 2px; }
+#source-marks mark.current { background: rgba(255, 150, 0, 0.6); }
+textarea.write { position: relative; z-index: 1; }
+
+/* Cmd held: links look clickable. */
+body.cmd-held .write a, body.cmd-held .write .def-url { cursor: pointer; }
+/* Focus + Typewriter Mode while scrolling with the wheel: nothing dimmed. */
+body.focus-lifted .focus-mode .write > .b:not(.focus), .focus-lifted.focus-mode .write > .b:not(.focus) { opacity: 1; }
+/* Focus Mode in Source Code Mode: the text area is not dimmed (it is one block). */
+
+body.source-focus textarea.write { color: color-mix(in srgb, var(--text) 32%, transparent); }
+#source-focus { position: absolute; z-index: 2; margin: 0; border-style: solid; border-color: transparent; white-space: pre-wrap; overflow-wrap: break-word; pointer-events: none; color: var(--text); }
+#source-focus .off { color: transparent; }

@@ -1,0 +1,349 @@
+/* Themes. The default (Github) values live in editor.css; each theme here
+   overrides variables and the rules that give it its character. */
+
+/* --- Newsprint: warm paper, serif, narrow measure -------------------------- */
+:root[data-theme="newsprint"] {
+  --bg: #f3f2ee;
+  --text: #1f0909;
+  --muted: #656565;
+  --faint: #a8a39a;
+  --border: #c5c5c5;
+  --rule: #c5c5c5;
+  --heading-rule: #c5c5c5;
+  --soft: #e8e7e7;
+  --accent: #065588;
+  --code-bg: #dadada;
+  --code-border: transparent;
+  --fence-bg: #dadada;
+  --zebra: #e8e7e7;
+  --quote-text: #656565;
+  --quote-bar: #bababa;
+  --select: #c9c0e0;
+  --side-bg: #f3f2ee;
+  --font-body: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif;
+  --line-height: 1.5;
+  --content-width: 40em;
+}
+[data-theme="newsprint"] .write { --gap: calc(var(--fs) * 1.5); --iw: calc(var(--fs) * 1.5); --qw: calc(var(--fs) * 3); --bar-w: 5px; }
+[data-theme="newsprint"] .write > .b[data-q]::after { left: calc(-1 * (var(--q) * var(--qw) + var(--indent, 0) * var(--iw)) + var(--fs) * 2); }
+[data-theme="newsprint"] .write h1 { font-size: 1.875em; font-weight: normal; line-height: 1.3; margin-top: 2em; margin-bottom: 0.5em; padding-bottom: 0.8125em; }
+[data-theme="newsprint"] .write h2, [data-theme="newsprint"] .write h3 { font-size: 1.3125em; line-height: 1.15; margin-top: 2.285714em; margin-bottom: 0.75em; border-bottom: 0; }
+[data-theme="newsprint"] .write h3 { font-weight: normal; }
+[data-theme="newsprint"] .write h4 { font-size: 1.125em; margin-top: 2.67em; }
+[data-theme="newsprint"] .write h5, [data-theme="newsprint"] .write h6 { font-size: 1em; color: inherit; }
+[data-theme="newsprint"] .write blockquote, [data-theme="newsprint"] .write > .b[data-q] { font-style: italic; }
+[data-theme="newsprint"] .write blockquote { margin-left: 2em; padding-left: 1em; border-left-width: 5px; }
+[data-theme="newsprint"] .write tr, [data-theme="newsprint"] .write th, [data-theme="newsprint"] .write td { border: 0; }
+[data-theme="newsprint"] .write th { text-transform: uppercase; text-align: left; padding: 0.25em 0.25em 0.25em 0.4em; }
+[data-theme="newsprint"] .write td { padding: 0.25em 0.25em 0.25em 0.4em; vertical-align: top; }
+[data-theme="newsprint"] .write thead tr { background: #dadada; }
+[data-theme="newsprint"] .write pre { border: 0; margin-left: 2em; margin-bottom: 3em; padding-left: 1ch; padding-right: 1ch; font-size: 0.875em; line-height: 1.714285; }
+[data-theme="newsprint"] .write hr { height: 1px; }
+
+/* --- Night: dark slate ----------------------------------------------------- */
+:root[data-theme="night"] {
+  --bg: #363b40;
+  --text: #b8bfc6;
+  --muted: #9da2a6;
+  --faint: #6b737b;
+  --border: #474d54;
+  --rule: #474d54;
+  --heading-rule: transparent;
+  --soft: #2e3033;
+  --accent: #e0e0e0;
+  --mark-bg: #d3d40e;
+  --code-bg: rgba(0, 0, 0, 0.18);
+  --code-border: transparent;
+  --fence-bg: #333333;
+  --zebra: transparent;
+  --quote-text: #9da2a6;
+  --quote-bar: #474d54;
+  --select: #4a89dc;
+  --side-bg: #2e3033;
+  --control: #b7b7b7;
+  --hl-comment: #da924a;
+  --hl-string: #d3d3ef;
+  --hl-number: #64ab8f;
+  --hl-keyword: #c88fd0;
+  --hl-title: #8d8df0;
+  --hl-attr: #84b6cb;
+  --hl-tag: #7dff7d;
+  --font-heading: "Lucida Grande", Corbel, "PingFang SC", sans-serif;
+  --font-mono: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+  --line-height: 1.625;
+  --content-width: 914px;
+}
+[data-theme="night"] .write { --gap: calc(var(--fs) * 0.75); --qw: calc(var(--fs) * 3.75); --bar-w: 2px; }
+[data-theme="night"] .write > .b[data-q]::after { left: calc(-1 * (var(--q) * var(--qw) + var(--indent, 0) * var(--iw)) + var(--fs) * 1.875); }
+[data-theme="night"] .write h1, [data-theme="night"] .write h2, [data-theme="night"] .write h3, [data-theme="night"] .write h4, [data-theme="night"] .write h5, [data-theme="night"] .write h6 { font-weight: normal; color: #dedede; margin-top: 0; margin-bottom: 1.5rem; border-bottom: 0; }
+[data-theme="night"] .write h1 { font-size: 2.5rem; line-height: 2.75rem; letter-spacing: -1.5px; margin-top: 2em; }
+[data-theme="night"] .write h2 { font-size: 1.63rem; line-height: 1.875rem; letter-spacing: -1px; font-weight: bold; }
+[data-theme="night"] .write h3 { font-size: 1.17rem; line-height: 1.5rem; letter-spacing: -1px; font-weight: bold; }
+[data-theme="night"] .write h4 { font-size: 1.12rem; line-height: 1.375rem; color: #fff; }
+[data-theme="night"] .write h5 { font-size: 0.97rem; line-height: 1.25rem; font-weight: bold; }
+[data-theme="night"] .write h6 { font-size: 0.93rem; line-height: 1rem; color: #fff; }
+[data-theme="night"] .write > p.p, [data-theme="night"] .write > figure.table, [data-theme="night"] .write > pre { margin-bottom: 1.5rem; }
+[data-theme="night"] .write a { text-decoration: underline; }
+[data-theme="night"] .write a:hover { color: #fff; }
+[data-theme="night"] .write blockquote { margin-left: 1.875rem; padding-left: 30px; border-left-width: 2px; }
+[data-theme="night"] .write :not(pre) > code { padding: 2px 5px; font-size: 0.875em; }
+[data-theme="night"] .write pre { border: 0; padding: 10px 10px 10px 30px; font-size: 0.875em; }
+[data-theme="night"] .write tr { border: 0; }
+[data-theme="night"] .write th, [data-theme="night"] .write td { padding: 5px 10px; vertical-align: top; }
+[data-theme="night"] .write th { border-bottom: 1px solid var(--border); }
+[data-theme="night"] .write hr { margin: 24px 0; }
+[data-theme="night"] .write mark { color: #000; }
+[data-theme="night"] .write > pre.meta { background: #333; color: #9da2a6; }
+[data-theme="night"] .write > .li[data-kind="task"]::before { background: transparent; border-color: #9da2a6; }
+[data-theme="night"] ::highlight(find) { background: #7a6312; color: #fff; }
+[data-theme="night"] ::highlight(find-current) { background: #c9651c; color: #fff; }
+
+/* --- Pixyll: bookish serif body, heavy sans headings ------------------------ */
+:root[data-theme="pixyll"] {
+  --bg: #ffffff;
+  --text: #333333;
+  --muted: #7a7a7a;
+  --faint: #b9b9b9;
+  --border: #333333;
+  --rule: #7a7a7a;
+  --heading-rule: transparent;
+  --soft: #f7f7f7;
+  --accent: #463f5c;
+  --code-bg: transparent;
+  --code-border: transparent;
+  --fence-bg: transparent;
+  --zebra: transparent;
+  --quote-text: #555555;
+  --quote-bar: #7a7a7a;
+  --side-bg: #ffffff;
+  --font-body: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", serif;
+  --font-heading: Lato, "Helvetica Neue", Helvetica, "PingFang SC", sans-serif;
+  --font-mono: Menlo, Monaco, "Courier New", monospace;
+  --line-height: 1.5;
+  --content-width: 914px;
+}
+[data-theme="pixyll"] .write { --gap: calc(var(--fs) * 1.125); --qw: calc(var(--fs) * 1.8); --bar-w: 5px; padding-top: 2rem; }
+[data-theme="pixyll"] .write > p.p, [data-theme="pixyll"] .write > .li { font-size: 1.125rem; font-weight: 300; }
+[data-theme="pixyll"] .write h1, [data-theme="pixyll"] .write h2, [data-theme="pixyll"] .write h3 { font-weight: 900; line-height: 1.25; border-bottom: 0; margin-top: 1.5em; margin-bottom: 0.6em; }
+[data-theme="pixyll"] .write h1 { font-size: 2.25rem; }
+[data-theme="pixyll"] .write h2 { font-size: 1.75rem; }
+[data-theme="pixyll"] .write h3 { font-size: 1.5rem; }
+[data-theme="pixyll"] .write h4, [data-theme="pixyll"] .write h5, [data-theme="pixyll"] .write h6 { font-size: 1.13rem; font-weight: 700; color: inherit; }
+[data-theme="pixyll"] .write a { text-decoration: underline; }
+[data-theme="pixyll"] .write blockquote, [data-theme="pixyll"] .write > .b[data-q] { font-style: italic; }
+[data-theme="pixyll"] .write blockquote { padding: 1.33em; border-left-width: 5px; }
+[data-theme="pixyll"] .write :not(pre) > code { color: #7a7a7a; font-size: 0.85em; }
+[data-theme="pixyll"] .write pre { color: #7a7a7a; border: 1px solid #7a7a7a; padding: 0.5rem 1.125em; font-size: 1rem; }
+[data-theme="pixyll"] .write table { font-size: 1.125rem; }
+[data-theme="pixyll"] .write tr { border: 0; }
+[data-theme="pixyll"] .write th, [data-theme="pixyll"] .write td { border: 0; border-top: 1px solid #333; padding: 12px; line-height: 1.2; vertical-align: top; }
+[data-theme="pixyll"] .write th { border-top: 0; border-bottom: 2px solid #333; vertical-align: bottom; }
+
+/* --- Whitey: centred headings, justified old-style serif -------------------- */
+:root[data-theme="whitey"] {
+  --bg: #fefefe;
+  --text: #333333;
+  --muted: #888888;
+  --faint: #c4c4c4;
+  --border: #dddddd;
+  --rule: #dddddd;
+  --heading-rule: transparent;
+  --soft: #f8f8f8;
+  --accent: #2484c1;
+  --code-bg: #ffffff;
+  --code-border: transparent;
+  --fence-bg: #ffffff;
+  --zebra: transparent;
+  --quote-text: inherit;
+  --quote-bar: #dddddd;
+  --side-bg: #fefefe;
+  --font-body: Vollkorn, Palatino, Times, "Songti SC", STSong, serif;
+  --font-mono: Consolas, Menlo, Monaco, monospace;
+  --line-height: 1.53;
+  --content-width: 960px;
+}
+[data-theme="whitey"] .write { --fs-scale: 1.1875; font-size: calc(var(--fs) * 1.1875); --gap: calc(var(--fs) * 0.6); --iw: calc(var(--fs) * 1.45); --qw: calc(var(--fs) * 2.4); --bar-w: 1px; padding-top: 40px; text-align: justify; }
+[data-theme="whitey"] .write > .b[data-q]::after { left: calc(-1 * (var(--q) * var(--qw) + var(--indent, 0) * var(--iw)) + var(--fs) * 1.2); }
+[data-theme="whitey"] .write h1, [data-theme="whitey"] .write h2, [data-theme="whitey"] .write h3 { text-align: center; border-bottom: 0; }
+[data-theme="whitey"] .write h1 { font-size: 3em; }
+[data-theme="whitey"] .write h2 { font-weight: normal; margin-top: 2em; padding-bottom: 0.35em; background: linear-gradient(#2f2f2f, #2f2f2f) bottom center / 100px 1px no-repeat; }
+[data-theme="whitey"] .write h3 { font-weight: normal; font-style: italic; margin-top: 3em; }
+[data-theme="whitey"] .write h6 { color: inherit; }
+[data-theme="whitey"] .write > p.p { margin-top: 0; hyphens: auto; }
+[data-theme="whitey"] .write > .li[data-kind="ul"]::before { border-radius: 0; }
+[data-theme="whitey"] .write blockquote { margin-left: 1em; padding-left: 1em; border-left-width: 1px; }
+[data-theme="whitey"] .write :not(pre) > code { font-size: 0.9em; }
+[data-theme="whitey"] .write pre { margin-left: 1em; padding: 6px 1em 8px; border: 1px solid #ddd; margin-bottom: 1.5em; text-align: left; }
+[data-theme="whitey"] .write hr { height: 1px; margin: 2em 0; }
+[data-theme="whitey"] .write tr { border: 0; }
+[data-theme="whitey"] .write th, [data-theme="whitey"] .write td { border: 0; border-top: 1px solid #ddd; padding: 8px; vertical-align: top; }
+[data-theme="whitey"] .write thead th { border-top: 0; vertical-align: bottom; }
+
+/* --- Gothic: a light geometric sans, centred upper-case headings ---------- */
+:root[data-theme="gothic"] {
+  --bg: #fcfcfc;
+  --text: #111111;
+  --muted: #777777;
+  --faint: #bbbbbb;
+  --border: #e0e0e0;
+  --rule: #e0e0e0;
+  --heading-rule: transparent;
+  --soft: #f3f3f3;
+  --accent: #2077b2;
+  --code-bg: #f3f3f3;
+  --code-border: transparent;
+  --fence-bg: #f6f6f6;
+  --zebra: transparent;
+  --quote-text: #555555;
+  --quote-bar: #d0d0d0;
+  --side-bg: #fcfcfc;
+  --font-body: "Century Gothic", "Avenir Next", Avenir, "Didact Gothic", Futura, "Yu Gothic", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --font-heading: var(--font-body);
+  --font-mono: Menlo, Monaco, Consolas, monospace;
+  --line-height: 1.75;
+  --content-width: 914px;
+}
+[data-theme="gothic"] .write { font-weight: 300; text-align: justify; -webkit-font-smoothing: antialiased; }
+[data-theme="gothic"] .write h1, [data-theme="gothic"] .write h2 { font-weight: normal; text-align: center; text-transform: uppercase; border-bottom: 0; }
+[data-theme="gothic"] .write h1 { font-size: 2.6em; line-height: 1.4; margin-top: 1.4em; margin-bottom: 0.65em; padding: 20px 30px; letter-spacing: 0.02em; }
+[data-theme="gothic"] .write h2 { font-size: 1.9em; line-height: 1.5; margin-top: 1.5em; margin-bottom: 1em; padding: 0 30px; }
+[data-theme="gothic"] .write h3, [data-theme="gothic"] .write h4, [data-theme="gothic"] .write h5 { font-weight: normal; }
+[data-theme="gothic"] .write h5 { font-size: 1.125em; }
+[data-theme="gothic"] .write h6 { font-size: 1em; font-weight: bold; color: inherit; }
+[data-theme="gothic"] .write strong { font-weight: 600; }
+[data-theme="gothic"] .write pre, [data-theme="gothic"] .write table { text-align: left; }
+[data-theme="gothic"] .write th { font-weight: 600; }
+
+/* ===== Measured theme metrics (generated from Typora page captures; see parity-ledger) ===== */
+/* night: values measured on Typora's own page (ev_6e8d4f74887…) */
+:root[data-theme="night"] { --bg: rgb(54, 59, 64); }
+[data-theme="night"] .write { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); --fs: 16px; padding-top: 36px; padding-bottom: 70px; }
+[data-theme="night"] .write > h1.h { font-family: "Lucida Grande", Corbel, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 40px; font-weight: 400; line-height: 44px; letter-spacing: -1.5px; color: rgb(222, 222, 222); margin-top: 80px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="night"] .write > h2.h { font-family: "Lucida Grande", Corbel, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 26.08px; font-weight: 700; line-height: 30px; letter-spacing: -1px; color: rgb(222, 222, 222); margin-top: 0px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="night"] .write > h3.h { font-family: "Lucida Grande", Corbel, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 18.72px; font-weight: 700; line-height: 24px; letter-spacing: -1px; color: rgb(222, 222, 222); margin-top: 0px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="night"] .write > h4.h { font-family: "Lucida Grande", Corbel, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 17.92px; font-weight: 400; line-height: 22px; color: rgb(255, 255, 255); margin-top: 0px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="night"] .write > h5.h { font-family: "Lucida Grande", Corbel, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 15.52px; font-weight: 700; line-height: 20px; color: rgb(222, 222, 222); margin-top: 0px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="night"] .write > h6.h { font-family: "Lucida Grande", Corbel, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 14.88px; font-weight: 400; line-height: 16px; color: rgb(255, 255, 255); margin-top: 0px; margin-bottom: 12px; border-bottom: 0; }
+[data-theme="night"] .write > p.p { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); margin-top: 0px; margin-bottom: 24px; }
+[data-theme="night"] .write strong { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 700; line-height: 26px; color: rgb(222, 222, 222); }
+[data-theme="night"] .write em { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; font-style: italic; line-height: 26px; color: rgb(184, 191, 198); }
+[data-theme="night"] .write a { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(224, 224, 224); text-decoration-line: underline; }
+[data-theme="night"] .write del { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); }
+[data-theme="night"] .write .tok[data-t="code"] code { font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace; font-size: 14px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); background-color: rgba(0, 0, 0, 0.05); padding: 2px 5px 2px 5px; border-radius: 0px; border-bottom: 0; }
+[data-theme="night"] .write > pre.code { font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace; font-size: 14.4px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); background-color: rgb(51, 51, 51); margin-top: 0px; margin-bottom: 20px; padding: 10px 10px 10px 30px; border-radius: 0px; border-bottom: 0; }
+[data-theme="night"] .write figure.table table { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); background-color: rgba(0, 0, 0, 0); margin-top: 0px; margin-bottom: 0px; }
+[data-theme="night"] .write figure.table th { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 700; line-height: 26px; color: rgb(222, 222, 222); background-color: rgba(0, 0, 0, 0); padding: 5px 10px 5px 10px; border-radius: 0px; border-bottom: 0; }
+[data-theme="night"] .write figure.table td { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); background-color: rgba(0, 0, 0, 0); padding: 5px 10px 5px 10px; border-radius: 0px; border-bottom: 1px solid rgb(71, 77, 84); }
+[data-theme="night"] .write > .math { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 26px; color: rgb(184, 191, 198); margin-top: 16px; margin-bottom: 16px; }
+/* newsprint: values measured on Typora's own page (ev_4479f49128e…) */
+:root[data-theme="newsprint"] { --bg: rgb(243, 242, 238); }
+[data-theme="newsprint"] .write { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); --fs: 16px; padding-top: 36px; padding-bottom: 70px; }
+[data-theme="newsprint"] .write > h1.h { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 30px; font-weight: 400; line-height: 39px; color: rgb(31, 9, 9); margin-top: 60px; margin-bottom: 15px; border-bottom: 1px solid rgb(197, 197, 197); }
+[data-theme="newsprint"] .write > h2.h { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 21px; font-weight: 700; line-height: 24.15px; color: rgb(31, 9, 9); margin-top: 48px; margin-bottom: 15.75px; border-bottom: 0; }
+[data-theme="newsprint"] .write > h3.h { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 21px; font-weight: 400; line-height: 24.15px; color: rgb(31, 9, 9); margin-top: 48px; margin-bottom: 15.75px; border-bottom: 0; }
+[data-theme="newsprint"] .write > h4.h { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 18px; font-weight: 700; line-height: 24px; color: rgb(31, 9, 9); margin-top: 48.06px; margin-bottom: 27px; border-bottom: 0; }
+[data-theme="newsprint"] .write > h5.h { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 700; line-height: 24px; color: rgb(31, 9, 9); margin-top: 16px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="newsprint"] .write > h6.h { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 700; line-height: 24px; color: rgb(31, 9, 9); margin-top: 16px; margin-bottom: 24px; border-bottom: 0; }
+[data-theme="newsprint"] .write > p.p { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); margin-top: 16px; margin-bottom: 24px; }
+[data-theme="newsprint"] .write strong { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 700; line-height: 24px; color: rgb(31, 9, 9); }
+[data-theme="newsprint"] .write em { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; font-style: italic; line-height: 24px; color: rgb(31, 9, 9); }
+[data-theme="newsprint"] .write a { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(6, 85, 136); text-decoration-line: none; }
+[data-theme="newsprint"] .write del { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); }
+[data-theme="newsprint"] .write .tok[data-t="code"] code { font-family: "Lucida Console", Consolas, Courier, monospace; font-size: 14px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); background-color: rgb(218, 218, 218); padding: 0px 2px 0px 2px; border-radius: 0px; border-bottom: 0; }
+[data-theme="newsprint"] .write > pre.code { font-family: "Lucida Console", Consolas, Courier, monospace; font-size: 14.4px; font-weight: 400; line-height: 24.6857px; color: rgb(31, 9, 9); background-color: rgb(218, 218, 218); margin-top: 14.4px; margin-bottom: 43.2px; padding: 0px 8.64141px 0px 8.64141px; border-radius: 0px; border-bottom: 0; }
+[data-theme="newsprint"] .write figure.table table { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); background-color: rgba(0, 0, 0, 0); margin-top: 0px; margin-bottom: 0px; }
+[data-theme="newsprint"] .write figure.table th { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 700; line-height: 24px; color: rgb(31, 9, 9); background-color: rgba(0, 0, 0, 0); padding: 4px 4px 4px 6.4px; border-radius: 0px; border-bottom: 0; }
+[data-theme="newsprint"] .write figure.table td { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); background-color: rgba(0, 0, 0, 0); padding: 4px 4px 4px 6.4px; border-radius: 0px; border-bottom: 0; }
+[data-theme="newsprint"] .write > .math { font-family: "PT Serif", "Times New Roman", Times, "Songti SC", STSong, serif; font-size: 16px; font-weight: 400; line-height: 24px; color: rgb(31, 9, 9); margin-top: 16px; margin-bottom: 16px; }
+/* pixyll: values measured on Typora's own page (ev_874be12a650…) */
+:root[data-theme="pixyll"] { --bg: rgb(255, 255, 255); }
+[data-theme="pixyll"] .write { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 21px; font-weight: 400; line-height: 21px; color: rgb(51, 51, 51); --fs: 21px; padding-top: 28px; padding-bottom: 70px; }
+[data-theme="pixyll"] .write > h1.h { font-family: Lato, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 62.972px; font-weight: 700; line-height: 75.5664px; color: rgb(51, 51, 51); margin-top: 62.972px; margin-bottom: 31.486px; border-bottom: 0; }
+[data-theme="pixyll"] .write > h2.h { font-family: Lato, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 32.06px; font-weight: 700; line-height: 38.472px; color: rgb(51, 51, 51); margin-top: 32.06px; margin-bottom: 16.03px; border-bottom: 0; }
+[data-theme="pixyll"] .write > h3.h { font-family: Lato, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 26.6px; font-weight: 700; line-height: 31.92px; color: rgb(51, 51, 51); margin-top: 26.6px; margin-bottom: 13.3px; border-bottom: 0; }
+[data-theme="pixyll"] .write > h4.h { font-family: Lato, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 22.274px; font-weight: 700; line-height: 26.7288px; color: rgb(51, 51, 51); margin-top: 22.274px; margin-bottom: 11.137px; border-bottom: 0; }
+[data-theme="pixyll"] .write > h5.h { font-family: Lato, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 15.75px; font-weight: 700; line-height: 18.9px; color: rgb(51, 51, 51); margin-top: 15.75px; margin-bottom: 7.875px; border-bottom: 0; }
+[data-theme="pixyll"] .write > h6.h { font-family: Lato, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 15.75px; font-weight: 700; line-height: 18.9px; color: rgb(51, 51, 51); margin-top: 15.75px; margin-bottom: 7.875px; border-bottom: 0; }
+[data-theme="pixyll"] .write > p.p { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 300; line-height: 31.5px; color: rgb(51, 51, 51); margin-top: 14px; margin-bottom: 14px; }
+[data-theme="pixyll"] .write strong { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 400; line-height: 31.5px; color: rgb(51, 51, 51); }
+[data-theme="pixyll"] .write em { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 300; font-style: italic; line-height: 31.5px; color: rgb(51, 51, 51); }
+[data-theme="pixyll"] .write a { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 300; line-height: 31.5px; color: rgb(70, 63, 92); text-decoration-line: underline; }
+[data-theme="pixyll"] .write del { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 300; line-height: 31.5px; color: rgb(51, 51, 51); }
+[data-theme="pixyll"] .write .tok[data-t="code"] code { font-family: Menlo, Monaco, "Courier New", monospace; font-size: 17.5px; font-weight: 300; line-height: 31.5px; color: rgb(122, 122, 122); background-color: rgba(0, 0, 0, 0); padding: 0px 0px 0px 0px; border-radius: 0px; border-bottom: 0; }
+[data-theme="pixyll"] .write > pre.code { font-family: Menlo, Monaco, "Courier New", monospace; font-size: 15.75px; font-weight: 400; line-height: 21px; color: rgb(122, 122, 122); background-color: rgb(255, 255, 255); margin-top: 15.75px; margin-bottom: 13.86px; padding: 7px 17.7188px 7px 17.7188px; border-radius: 0px; border-bottom: 1px solid rgb(122, 122, 122); }
+[data-theme="pixyll"] .write figure.table table { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 400; line-height: 21px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); margin-top: 0px; margin-bottom: 0px; }
+[data-theme="pixyll"] .write figure.table th { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 700; line-height: 21px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); padding: 12px 12px 12px 12px; border-radius: 0px; border-bottom: 2px solid rgb(51, 51, 51); }
+[data-theme="pixyll"] .write figure.table td { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 17.5px; font-weight: 400; line-height: 21px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); padding: 12px 12px 12px 12px; border-radius: 0px; border-bottom: 0; }
+[data-theme="pixyll"] .write > .math { font-family: Merriweather, "PT Serif", Georgia, "Times New Roman", STSong, "Songti SC", STSong, serif; font-size: 15.75px; font-weight: 400; line-height: 21px; color: rgb(51, 51, 51); margin-top: 14px; margin-bottom: 14px; }
+/* gothic: values measured on Typora's own page (ev_adfafdbcb8f…) */
+:root[data-theme="gothic"] { --bg: rgb(252, 252, 252); }
+[data-theme="gothic"] .write { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 22.8571px; color: rgb(51, 51, 51); --fs: 16px; padding-top: 36px; padding-bottom: 70px; }
+[data-theme="gothic"] .write > h1.h { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 32px; font-weight: 400; letter-spacing: normal; line-height: 64px; color: rgb(17, 17, 17); margin-top: 44px; margin-bottom: 28px; border-bottom: 0; }
+[data-theme="gothic"] .write > h2.h { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 28.8px; font-weight: 400; line-height: 48px; color: rgb(17, 17, 17); margin-top: 48px; margin-bottom: 31px; border-bottom: 0; }
+[data-theme="gothic"] .write > h3.h { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 25.6px; font-weight: 400; line-height: 36.5714px; color: rgb(17, 17, 17); margin-top: 16px; margin-bottom: 16px; border-bottom: 0; }
+[data-theme="gothic"] .write > h4.h { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 22.4px; font-weight: 400; line-height: 32px; color: rgb(17, 17, 17); margin-top: 16px; margin-bottom: 16px; border-bottom: 0; }
+[data-theme="gothic"] .write > h5.h { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 18px; font-weight: 400; line-height: 25.7143px; color: rgb(17, 17, 17); margin-top: 16px; margin-bottom: 16px; border-bottom: 0; }
+[data-theme="gothic"] .write > h6.h { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 700; line-height: 22.8571px; color: rgb(17, 17, 17); margin-top: 16px; margin-bottom: 16px; border-bottom: 0; }
+[data-theme="gothic"] .write > p.p { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 28px; color: rgb(17, 17, 17); margin-top: 0px; margin-bottom: 20px; }
+[data-theme="gothic"] .write strong { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: rgb(17, 17, 17); }
+[data-theme="gothic"] .write em { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; font-style: italic; line-height: 28px; color: rgb(17, 17, 17); }
+[data-theme="gothic"] .write a { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 28px; color: rgb(153, 0, 0); text-decoration-line: none; }
+[data-theme="gothic"] .write del { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 28px; color: rgb(17, 17, 17); }
+[data-theme="gothic"] .write .tok[data-t="code"] code { font-family: "Lucida Console", Consolas, Courier, monospace; font-size: 14.4px; font-weight: 300; line-height: 28px; color: rgb(17, 17, 17); background-color: rgba(0, 0, 0, 0); padding: 1.44px 1.44px 1.44px 1.44px; border-radius: 0px; border-bottom: 1px solid rgb(204, 204, 204); }
+[data-theme="gothic"] .write > pre.code { font-family: "Lucida Console", Consolas, Courier, monospace; font-size: 16px; font-weight: 300; line-height: 22.8571px; color: rgb(51, 51, 51); background-color: rgb(252, 252, 252); margin-top: 0px; margin-bottom: 20px; padding: 6.4px 16px 4.8px 16px; border-radius: 0px; border-bottom: 1px solid rgb(204, 204, 204); }
+[data-theme="gothic"] .write figure.table table { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 22.8571px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); margin-top: 0px; margin-bottom: 0px; }
+[data-theme="gothic"] .write figure.table th { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 700; line-height: 20px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); padding: 8px 8px 8px 8px; border-radius: 0px; border-bottom: 0; }
+[data-theme="gothic"] .write figure.table td { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 20px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); padding: 8px 8px 8px 8px; border-radius: 0px; border-bottom: 0; }
+[data-theme="gothic"] .write > .math { font-family: TeXGyreAdventor, "Century Gothic", "Didact Gothic", "Yu Gothic", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; font-weight: 300; line-height: 22.8571px; color: rgb(51, 51, 51); margin-top: 16px; margin-bottom: 16px; }
+/* whitey: values measured on Typora's own page (ev_ddc28aa0838…) */
+:root[data-theme="whitey"] { --bg: rgb(254, 254, 254); }
+[data-theme="whitey"] .write { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 29.07px; color: rgb(51, 51, 51); --fs: 19px; padding-top: 40px; padding-bottom: 70px; }
+[data-theme="whitey"] .write > h1.h { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 57px; font-weight: 400; line-height: 87.21px; color: rgb(51, 51, 51); margin-top: 91.2px; margin-bottom: 19px; border-bottom: 0; }
+[data-theme="whitey"] .write > h2.h { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 34.2px; font-weight: 400; line-height: 52.326px; color: rgb(51, 51, 51); margin-top: 28.386px; margin-bottom: 19px; padding-bottom: 0; border-bottom: 0; }
+[data-theme="whitey"] .write > h3.h { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 30.4px; font-weight: 400; font-style: italic; line-height: 46.512px; color: rgb(51, 51, 51); margin-top: 25.232px; margin-bottom: 19px; border-bottom: 0; }
+[data-theme="whitey"] .write > h4.h { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 26.6px; font-weight: 700; line-height: 40.698px; color: rgb(51, 51, 51); margin-top: 19px; margin-bottom: 19px; border-bottom: 0; }
+[data-theme="whitey"] .write > h5.h { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 22.8px; font-weight: 700; line-height: 34.884px; color: rgb(51, 51, 51); margin-top: 19px; margin-bottom: 19px; border-bottom: 0; }
+[data-theme="whitey"] .write > h6.h { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 700; line-height: 29.07px; color: rgb(51, 51, 51); margin-top: 19px; margin-bottom: 19px; border-bottom: 0; }
+[data-theme="whitey"] .write > p.p { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 29.07px; color: rgb(51, 51, 51); margin-top: 0px; margin-bottom: 19px; }
+[data-theme="whitey"] .write strong { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 700; line-height: 29.07px; color: rgb(51, 51, 51); }
+[data-theme="whitey"] .write em { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 29.07px; color: rgb(51, 51, 51); }
+[data-theme="whitey"] .write a { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 29.07px; color: rgb(36, 132, 193); text-decoration-line: none; }
+[data-theme="whitey"] .write del { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 29.07px; color: rgb(51, 51, 51); }
+[data-theme="whitey"] .write .tok[data-t="code"] code { font-family: Consolas, Menlo, Monaco, monospace; font-size: 17.1px; font-weight: 400; line-height: 26.163px; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); padding: 0px 0px 0px 0px; border-radius: 0px; border-bottom: 0; }
+[data-theme="whitey"] .write > pre.code { font-family: Consolas, Menlo, Monaco, monospace; font-size: 17.1px; font-weight: 400; line-height: 26.163px; color: rgb(51, 51, 51); background-color: rgb(254, 254, 254); margin-top: 17.1px; margin-bottom: 25.65px; padding: 6px 0px 8px 17.1px; border-radius: 0px; border-bottom: 1px solid rgb(221, 221, 221); }
+[data-theme="whitey"] .write figure.table table { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 29.07px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); margin-top: 0px; margin-bottom: 0px; }
+[data-theme="whitey"] .write figure.table th { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 700; line-height: 25.3333px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); padding: 8px 8px 8px 8px; border-radius: 0px; border-bottom: 0; }
+[data-theme="whitey"] .write figure.table td { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 25.3333px; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0); padding: 8px 8px 8px 8px; border-radius: 0px; border-bottom: 0; }
+[data-theme="whitey"] .write > .math { font-family: Vollkorn, Palatino, Times, "Songti SC", STSong, serif; font-size: 19px; font-weight: 400; line-height: 29.07px; color: rgb(51, 51, 51); margin-top: 0px; margin-bottom: 19px; }
+
+/* ===== Measured rules, tables, inline code edges (same captures as above) ===== */
+/* Horizontal rules: the wrapper carries the measured margins; the line itself is the inner hr. */
+[data-theme="night"] .write > .hr { margin: 24px 0; }
+[data-theme="night"] .write > .hr hr { border: 0; height: 2px; background: rgb(71, 77, 84); }
+[data-theme="newsprint"] .write > .hr { margin: 20px 0; }
+[data-theme="newsprint"] .write > .hr hr { border: 0; border-bottom: 1px solid rgb(197, 197, 197); height: 0; background: transparent; }
+[data-theme="pixyll"] .write > .hr { margin: 20px 0; }
+[data-theme="pixyll"] .write > .hr hr { border: 0; border-top: 1px solid rgb(128, 128, 128); height: 0; background: transparent; }
+[data-theme="gothic"] .write > .hr { margin: 20px 0; }
+[data-theme="gothic"] .write > .hr hr { border: 0; border-top: 1px solid rgb(128, 128, 128); height: 0; background: transparent; }
+[data-theme="whitey"] .write > .hr { margin: 38px 0; }
+[data-theme="whitey"] .write > .hr hr { border: 0; border-top: 1px solid rgb(221, 221, 221); height: 1px; background: transparent; }
+
+/* Inline code edges */
+[data-theme="night"] .write .tok[data-t="code"] code,
+[data-theme="newsprint"] .write .tok[data-t="code"] code,
+[data-theme="pixyll"] .write .tok[data-t="code"] code,
+[data-theme="whitey"] .write .tok[data-t="code"] code { border: 0; }
+[data-theme="gothic"] .write .tok[data-t="code"] code { margin: 0 0.2em; border: 1px solid rgb(204, 204, 204); }
+
+/* Table cell borders: horizontal-only tables in the serif/gothic themes */
+[data-theme="night"] .write figure.table th { border: 1px solid rgb(71, 77, 84); border-bottom: 0; }
+[data-theme="night"] .write figure.table td { border: 1px solid rgb(71, 77, 84); }
+[data-theme="newsprint"] .write figure.table th, [data-theme="newsprint"] .write figure.table td { border: 0; }
+[data-theme="pixyll"] .write figure.table th { border: 0; border-bottom: 2px solid rgb(51, 51, 51); }
+[data-theme="pixyll"] .write figure.table td { border: 0; border-top: 1px solid rgb(51, 51, 51); }
+[data-theme="gothic"] .write figure.table th { border: 0; }
+[data-theme="gothic"] .write figure.table td { border: 0; border-top: 1px solid rgb(51, 51, 51); }
+[data-theme="whitey"] .write figure.table th { border: 0; }
+[data-theme="whitey"] .write figure.table td { border: 0; border-top: 1px solid rgb(51, 51, 51); }
+[data-theme="gothic"] .write > pre.code { border-color: rgb(204, 204, 204); }
